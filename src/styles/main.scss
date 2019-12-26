@@ -1,3 +1,55 @@
+@import "mixin";
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+}
+
+$weekSet: mon 0, tue 1, wed 2, thu 3, fri 4, sat 5, sun 6;
+$monthDays: 28, 29, 30, 31;
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 707px;
+
+  div {
+    display: none;
+  }
+  // without $monthDays variable
+
+  // @for $i from 28 through 31 {
+  //   &-#{$i} div:nth-child(-n+#{$i}) {
+  //     @include day;
+  //   }
+  // }
+
+  // with $monthDays variable
+
+  @each $number in $monthDays {
+    &-#{$number} div:nth-child(-n + #{$number}) {
+      @include day;
+    }
+  }
+
+  @for $i from 1 through 31 {
+    div:nth-child(#{$i})::before {
+      content: "#{$i}";
+    }
+  }
+
+  @each $day, $shift in $weekSet {
+    &-#{$day} div:first-child {
+      margin-left: #{$shift *100 + $shift}px;
+    }
+  }
+
+  div:hover {
+    top: -20px;
+    background-color: pink;
+    transition: top 0.5s ease-in-out ;
+  }
 }
