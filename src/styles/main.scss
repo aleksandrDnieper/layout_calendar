@@ -19,15 +19,6 @@ $monthDays: 28, 29, 30, 31;
   div {
     display: none;
   }
-  // without $monthDays variable
-
-  // @for $i from 28 through 31 {
-  //   &-#{$i} div:nth-child(-n+#{$i}) {
-  //     @include day;
-  //   }
-  // }
-
-  // with $monthDays variable
 
   @each $number in $monthDays {
     &-#{$number} div:nth-child(-n + #{$number}) {
